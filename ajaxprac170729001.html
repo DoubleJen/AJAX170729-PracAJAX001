@@ -1,0 +1,51 @@
+<script>
+    var xmlhttp=false;
+    if(window.XMLHttpRequest){
+        // code for modern browsers
+        xmlhttp = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        // code for old IE browsers
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    console.log(xmlhttp.readyState);
+    xmlhttp.onreadystatechange = callback;
+
+    if(!xmlhttp){
+        alert("NO AJAX SUPPORT!!!");
+    }else {
+        alert("AJAX SUPPORT!!!");
+    }
+
+    function test(){
+        if(!xmlhttp) return;
+
+        //xmlobj.open(method,url,async,user,psw) => Specifies the request
+        xmlhttp.open("GET", "test.php", true);
+        //xmlobj.setRequestHeader() => Adds a label/value pair to the header to be sent
+        xmlhttp.setRequestHeader("User_Agent","Brad");
+        //xmlobj.send() => Sends the request to the server(Used for GET requests)
+        xmlhttp.send();
+    }
+
+    function callback() {
+        console.log(xmlhttp.readyState);
+        var target = document.getElementById("state" + xmlhttp.readyState);
+        target.innerHTML = xmlhttp.readyState;
+
+        if(xmlhttp.readyState == 4 &&  xmlhttp.status == 200){
+            document.getElementById("test").innerHTML = xmlhttp.responseText;
+        }
+    }
+
+
+</script>
+
+
+<input type="button" onclick="test()" value="CLICK">
+<div id="state0"></div>
+<div id="state1"></div>
+<div id="state2"></div>
+<div id="state3"></div>
+<div id="state4"></div>
+
+<div id="test"></div>
