@@ -1,0 +1,41 @@
+<script>
+    var xmlhttp=false;
+    if(window.XMLHttpRequest){
+        // code for modern browsers
+        xmlhttp = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        // code for old IE browsers
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    function cal() {
+        var x = document.getElementById('x').value;
+        var y = document.getElementById('y').value;
+        console.log(x + " :  " + y);
+
+        var url="ajaxprac170729003.php";
+        console.log(url);
+        xmlhttp.open("POST", url, true);
+
+        //application/x-www-form-urlencoded，會將資料做編碼傳送(空白以+代替，而特殊字元則傳成ASCII HEX。
+        //http://superlevin.ifengyuan.tw/form%E5%8A%A0%E4%B8%8Aenctypemultipartform-data%E4%BD%9C%E7%94%A8/
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                document.getElementById('result').innerHTML =
+                    xmlhttp.responseText;
+            }else{
+                console.log("status : " + xmlhttp.status);
+            }
+        };
+        xmlhttp.send("x=" + x + "&y=" + y);
+    }
+
+</script>
+
+<input type="text" id="x" />
++
+<input type="text" id="y" />
+<input type="button" onclick="cal()" value="="/>
+<span id="result"></span>
