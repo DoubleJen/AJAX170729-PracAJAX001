@@ -1,0 +1,60 @@
+<script>
+    var xmlhttp=false;
+    if(window.XMLHttpRequest){
+        // code for modern browsers
+        xmlhttp = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        // code for old IE browsers
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    function test() {
+       var table = document.getElementById("table");
+
+       //Attribute of table by forEach
+       //http://expect7.pixnet.net/blog/post/37901006-%5B%E7%A8%8B%E5%BC%8F%5D%5Bjavascript%5D-foreach-%E5%9C%A8javascript-%E4%B8%AD%E7%9A%84%E5%B1%95%E7%8F%BE%E6%96%B9
+        for(var key in table){
+            console.log(key + " :  " + table[key]);
+        }
+    }
+    
+    function addRowV1() {
+        var counter = document.getElementById("counter");
+        var table = document.getElementById("table");
+
+        //rows
+        //Returns a collection of all <tr> elements in a table
+        //https://www.w3schools.com/jsref/coll_table_rows.asp
+        //rows.length
+        //Returns the number of <tr> elements in the collection.
+        counter.innerHTML = table.rows.length;
+
+        //Insert Row & Insert Cell
+        //https://www.w3schools.com/jsref/met_table_insertrow.asp
+        //insertRow(-1) => a new row being inserted at the last position
+        //https://www.w3schools.com/jsref/met_tablerow_insertcell.asp
+        var tr = table.insertRow(-1);
+        var td0 = tr.insertCell(0);
+        var td1 = tr.insertCell(1);
+        var td2 = tr.insertCell(2);
+        td0.innerHTML="Data0";
+        td1.innerHTML="Data1";
+        td2.innerHTML="Data2";
+
+    }
+
+
+</script>
+
+<input type="button" onclick="test()" value="TEST"/>
+<!-- Add Row -->
+<input type="button" onclick="addRowV1()" value="+"/>
+<span id="counter">0</span>
+
+<table border="1" width="100%" id="table">
+    <tr>
+        <th>NO.</th>
+        <th>NAME</th>
+        <th>TEL.</th>
+    </tr>
+</table>

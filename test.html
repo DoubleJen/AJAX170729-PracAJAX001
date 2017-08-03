@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+
+        //先宣告物件
+        var myobj = new Object();
+
+        //給物件的屬性值
+        myobj.color = 'red';
+        myobj.name = 'hsin';
+        myobj.nation = 'taiwan';
+
+        //這邊展現如何用for - in 取出。
+        var content="";
+        for(var key in myobj){
+            content +="屬性名稱："+ key+" ; 值： "+myobj[key]+"\n";
+        }
+
+        alert(content);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
