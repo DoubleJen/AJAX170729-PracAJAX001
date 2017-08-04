@@ -1,0 +1,27 @@
+<script>
+    var xmlhttp=false;
+    if(window.XMLHttpRequest){
+        // code for modern browsers
+        xmlhttp = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        // code for old IE browsers
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    function test1() {
+        xmlhttp.open("GET", "ajaxprac170729005.php", true);
+        xmlhttp.onreadystatechange = function () {
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                var text = xmlhttp.responseText;
+                var table = document.getElementById("table");
+                table.innerHTML = text;
+            }
+        };
+        xmlhttp.send();
+    }
+
+
+</script>
+
+<button onclick="test1()">CLICK</button>
+<table border="1" width="100%" id="table"></table>

@@ -16,6 +16,15 @@
         for(var key in table){
             console.log(key + " :  " + table[key]);
         }
+        console.log("======================================================");
+
+        //HTML DOM children Property
+        //The children property returns a collection of an element's child elements, as an HTMLCollection object.
+        //https://www.w3schools.com/jsref/prop_element_children.asp
+        var cc = table.children;
+        for(var keycc in cc){
+            console.log(keycc + " : " + cc[keycc]);
+        }
     }
     
     function addRowV1() {
@@ -42,19 +51,135 @@
         td2.innerHTML="Data2";
 
     }
+    
+    function addRowV2() {
+        xmlhttp.open("GET", "ajaxprac170729004.php", true);
+        xmlhttp.onreadystatechange = function () {
+            if(xmlhttp.readyState == 4  && xmlhttp.status == 200){
+
+                //trim() =>  removes whitespace from both sides of a string.
+                //https://www.w3schools.com/jsref/jsref_trim_string.asp
+                //split() => split a string into an array of substrings, and returns the new array.
+                //https://www.w3schools.com/jsref/jsref_split.asp
+                var resp = xmlhttp.responseText.trim();
+                var data = resp.split(",");
+                console.log(data);
+
+                var table = document.getElementById("table");
+                var tr = table.insertRow(-1);
+                var td0 = tr.insertCell(0);
+                var td1 = tr.insertCell(1);
+                var td2 = tr.insertCell(2);
+                td0.innerHTML=data[0];
+                td1.innerHTML=data[1];
+                td2.innerHTML=data[2];
+
+                if(data[0] < 10){
+                    td0.bgColor = "pink";
+                }
+            }
+        }
+        xmlhttp.send();
+    }
+    
+    function addRowV3() {
+        xmlhttp.open("GET", "ajaxprac17072900401.php", true);
+        xmlhttp.onreadystatechange = function () {
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200 ){
+                var table = document.getElementById("table");
+
+                //responseXML => Returns the response data as XML data
+                var xml = xmlhttp.responseXML;
+                console.log(xml);
+
+                //notes => include 2 note
+                var notes = xml.getElementsByTagName("note");
+                console.log(notes.length);
+
+                //note
+                for(var i=0; i<notes.length; i++){
+                    var note = notes[i];
+                    //title
+                    var titleObj = note.getElementsByTagName('title');
+                    var title = titleObj[0].innerHTML;
+                    //price
+                    var priceObj = note.getElementsByTagName('price');
+                    var price = priceObj[0].innerHTML;
+                    //authors
+                    var authorsObj = note.getElementsByTagName('authors');
+                    var authors = authorsObj[0];
+                    var names = authors.getElementsByTagName('name');
+                    //name
+                    for(var j=0; j<names.length; j++){
+                        var nameObj = names[j];
+                        var name = nameObj.innerHTML;
+                        console.log(name);
+
+                        var tr = table.insertRow(-1);
+                        if(j == 0){
+                            var td0 = tr.insertCell(0);
+                            td0.rowSpan = names.length;
+                            td0.innerHTML =  title;
+
+                            var td1 = tr.insertCell(1);
+                            td1.innerHTML = name;
+
+                            var td2 = tr.insertCell(2);
+                            td2.rowSpan = names.length;
+                            td2.innerHTML = price;
+                        }else{
+                            var td1 = tr.insertCell(0);
+                            td1.innerHTML = name;
+                        }
+                    }
+                }
+            }
+        };
+        xmlhttp.send();
+    }
 
 
 </script>
 
 <input type="button" onclick="test()" value="TEST"/>
 <!-- Add Row -->
-<input type="button" onclick="addRowV1()" value="+"/>
+<input type="button" onclick="addRowV3()" value="+"/>
 <span id="counter">0</span>
 
 <table border="1" width="100%" id="table">
     <tr>
         <th>NO.</th>
         <th>NAME</th>
-        <th>TEL.</th>
+        <th>PRICE.</th>
+    </tr>
+</table>
+
+<hr />
+DEMO
+<table border="1" width="100%">
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Tel.</th>
+    </tr>
+    <tr>
+        <td rowspan="2">Note1</td>
+        <td>brad1</td>
+        <td rowspan="2">100</td>
+    </tr>
+    <tr>
+        <td>brad2</td>
+    </tr>
+
+    <tr>
+        <td rowspan="3">Note3</td>
+        <td>brad3</td>
+        <td rowspan="3">200</td>
+    </tr>
+    <tr>
+        <td>brad4</td>
+    </tr>
+    <tr>
+        <td>brad5</td>
     </tr>
 </table>
