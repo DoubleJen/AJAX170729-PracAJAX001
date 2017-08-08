@@ -1,0 +1,28 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script>
+    var member = {
+        id: "123",
+        account: "brad",
+        realname: "趙令文",
+        age: 51,
+        gender: false,
+        language: ["Java", "JavaScript", "PHP", "Android", "Swift", "iOS"]
+    };
+
+    console.log(member.realname);
+
+    //When sending data to a web server, the data has to be a string.
+    //Convert a JavaScript object into a string with JSON.stringify().
+    //https://www.w3schools.com/js/js_json_stringify.asp
+    var memberString = JSON.stringify(member);
+    console.log(memberString);
+
+    //When receiving data from a web server, the data is always a string.
+    //Parse the data with JSON.parse(), and the data becomes a JavaScript object.
+    //https://www.w3schools.com/js/js_json_parse.asp
+    var memberObj = JSON.parse(memberString);
+    console.log(memberObj.realname);
+
+
+</script>

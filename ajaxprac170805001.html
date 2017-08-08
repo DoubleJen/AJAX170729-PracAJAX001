@@ -1,0 +1,41 @@
+<!-- Use JQuery from CDN
+https://www.w3schools.com/jquery/jquery_get_started.asp -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<button onclick="test1()">TEST1</button>
+<div id="here"></div>
+
+<script>
+    function test1() {
+        //jQuery ajax() Method
+        // https://www.w3schools.com/jquery/jquery_ref_ajax.asp
+        $.ajax({
+            //url: Specifies the URL to send the request to. Default is the current page
+            url: "ajaxprac170805001.php",
+
+            //beforeSend(xhr): A function to run before the request is sent
+            beforeSend: function (xhr) {
+                console.log("beforSend: " + xhr.readyState);
+            },
+
+            //success(result,status,xhr): A function to be run when the request succeeds
+            success: function (result,status,xhr) {
+                console.log("OK:" + result + " => " + xhr.readyState);
+                $("#here").html(result);
+            },
+
+
+            //error(xhr,status,error): A function to run if the request fails.
+            error: function (xhr,status,error) {
+                console.log("NO OK: error!!!");
+            },
+
+            //complete(xhr,status): A function to run when the request is finished (after success and error functions)
+            complete: function (xhr,status) {
+                console.log("complete: " + xhr.status + " => " + status);
+                console.log("complete: " + xhr.responseText);
+            }
+        });
+    }
+    
+</script>
