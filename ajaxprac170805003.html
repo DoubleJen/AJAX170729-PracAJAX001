@@ -1,0 +1,48 @@
+<!-- Use JQuery from CDN
+https://www.w3schools.com/jquery/jquery_get_started.asp -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<button onclick="test21()">TEST2</button>
+<div id="here"></div>
+
+<script>
+    function test2() {
+        //jQuery post() Method
+        //$(selector).post(URL,data,function(data,status,xhr),dataType)
+        //https://www.w3schools.com/jquery/ajax_post.asp
+        $.post(
+            "ajaxprac170805003.php",
+            {
+                account: "brad",
+                passwd: "123456"
+            },
+            function (data,status,xhr) {
+                console.log(xhr.status);
+                console.log(data + " => " + status);
+
+            }
+        );
+    }
+
+    //Another Way
+    function test21() {
+        $.ajax({
+            url: "ajaxprac170805003.php",
+
+            //type: Specifies the type of request. (GET or POST)
+            type: "POST",
+
+            //data: Specifies data to be sent to the server
+            data:{
+                account: "tony",
+                passwd: "098765"
+            },
+            
+            complete: function (xhr, status) {
+                console.log(xhr.responseText + " => " +status);
+            }
+        });
+    }
+
+
+</script>
