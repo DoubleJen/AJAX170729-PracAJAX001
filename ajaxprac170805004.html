@@ -1,0 +1,32 @@
+<!--File upload-->
+
+<!-- Use JQuery from CDN
+https://www.w3schools.com/jquery/jquery_get_started.asp -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!--https://github.com/jfeldstein/jQuery.AjaxFileUpload.js-->
+<script src="APIs/jquery.ajaxfileupload.js"></script>
+
+<input type="file" name="uploadFile" id="uploadFile"/>
+<!--<button onclick="upload()">UPLOAD</button>-->
+
+<script>
+    $('#uploadFile').ajaxfileupload({
+        action: 'ajaxprac170805004.php',
+        valid_extensions : ['gif','png','jpg','jpeg'],
+        onComplete: function (response) {
+            console.log("OK: " + response);
+            //alert(JSON.stringify(response));
+        },
+        OnStart: function () {
+            console.log('start');
+        },
+        onCancle: function () {
+            console.log('no file selected');
+        }
+
+    });
+
+
+
+</script>
