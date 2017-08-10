@@ -1,0 +1,18 @@
+<script>
+    function myFunc(obj) {
+        alert('OK myFunc');
+    }
+</script>
+
+<!--<script src="jsonpprac170805001.php"></script>-->
+
+<script>
+    function test1(where) {
+        var s = document.createElement("script");
+        s.src="http://localhost:5678/jsonpprac170805001.php?where=" + where;
+        document.body.appendChild(s);
+    }
+</script>
+
+<button onclick="test1('here2')">TEST1</button>
+<div id="here2"></div>
