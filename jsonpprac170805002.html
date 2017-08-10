@@ -1,0 +1,46 @@
+<!-- Use JQuery from CDN
+https://www.w3schools.com/jquery/jquery_get_started.asp -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    function test1() {
+        $.ajax({
+            type: "GET",
+
+            //async: A Boolean value indicating whether the request should be handled asynchronous or not. Default is true
+            //https://www.w3schools.com/jquery/ajax_ajax.asp
+            async: true,
+            
+            url: "http://localhost:5678/jsonpprac170805002.php",
+
+            //dataType: The data type expected of the server response.
+            dataType: "jsonp",
+
+            //jsonp: A string overriding the callback function in a jsonp request
+            jsonp: "mycallback",
+
+            //jsonpCallback: Specifies a name for the callback function in a jsonp request
+            jsonpCallback: "myfunc",
+            
+            success: function (data) {
+                console.log(data.mesg);
+                console.log(data.name);
+                $("#here").html(data.name);
+            },
+            
+            error: function () {
+                alert("ERROR");
+            }
+
+        });
+    }
+    
+    function myfunc() {
+        console.log("GOT IT");
+    }
+    
+</script>
+
+
+<button onclick="test1()">TEST1</button>
+<div id="here"></div>
