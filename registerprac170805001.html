@@ -1,0 +1,79 @@
+<!-- Use JQuery from CDN
+https://www.w3schools.com/jquery/jquery_get_started.asp -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<form action="registerprac170805001.php" onsubmit="return ckForm();">
+    ACCOUNT: <input type="text" name="account" onblur="ckAccountV2()" id="account" /><span id='mesg'></span><br>
+        <!--
+                    The onblur event occurs when an object loses focus.
+                    https://www.w3schools.com/jsref/event_onblur.asp-->
+    PASSWORD:<input type="password" name="passwd" id="passwd" /><br>
+    REALNAME:<input type="text" name="realname" id="realname" /><br>
+    <input type="submit" value="REGISTER"/>
+</form>
+
+<script>
+    var isOK = false;
+    function ckAccount() {
+        console.log("ckAccouont Here");
+        var accountVal = $("#account").val();
+            //jQuery val() Method: Return the value attribute
+            //https://www.w3schools.com/jquery/html_val.asp
+        var params = {account: accountVal};
+        $.get(
+            "ckAccouontprac170805001.php",
+            params,
+            function (data){
+                var jsonObj = JSON.parse(data);
+
+                if(jsonObj.result != null && jsonObj.result == 0){
+                    console.log("Account Usable");
+                    $("#mesg").html('Account Usable帳號可用');
+                    isOK=true;
+                }else{
+                    console.log("Account Repeated");
+                    $("#mesg").html('<font color="red">Account Repeated帳號重覆');
+                    isOK=false;
+                }
+            }
+        );
+
+    }
+    
+    function ckAccountV2() {
+        console.log("ckAccouontV2 Here");
+        var accountVal = $("#account").val();
+        var params = {account: accountVal};
+        $.ajax({
+            async: false,
+            data: params,
+            url: "ckAccouontprac170805001.php",
+            success: function(data, status, xhr){
+                var jsonObj = JSON.parse(data);
+
+                if(jsonObj.result != null && jsonObj.result == 0){
+                    console.log("Account Usable");
+                    $("#mesg").html('Account Usable帳號可用');
+                    isOK=true;
+                }else{
+                    console.log("Account Repeated");
+                    $("#mesg").html('<font color="red">Account Repeated帳號重覆</font>');
+                    isOK=false;
+                }
+
+            }
+        });
+        
+    }
+
+    function ckForm() {
+        console.log("before ckForm");
+        ckAccouontV2();
+        console.log("after ckForm");
+        console.log("isOK = " + isOK);
+        return false;
+    }
+
+
+</script>
